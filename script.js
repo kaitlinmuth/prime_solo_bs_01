@@ -30,14 +30,19 @@ function searchCallback(results) {
 
 }
 
-function shuffleCells(cellName){
-		console.log("Next row contents: ", $(cellName).closest('.row').next().contents());
-	if ($(cellName).closest('.row').next().contents().length>0) {
-		console.log("Get a cell: ", $(cellName).closest('.row').next().contents().first());
-		$(cellName).insertAfter($(cellName).closest('.row').next().contents().first());
-		console.log("Now work on ", cellName.closest('.row').next().contents().first());
-		shuffleCells(cellName.closest('.row').next().contents().first());
-	} else {return;}
+function tidyCells(){
+	console.log("Repositioning cells!");
+	var cells = $('.container').children('.row').children();
+	console.log(cells);
+	$('.container').children('.row').remove();
+	for (var k=0; k<cells.length; k++){
+		console.log(k);
+		if (k%2 == 0){
+			$('.container').append("<div class='row'></div>");
+		}
+		$('.row').last().append(cells[k]);
+		$('.row').hide().delay(k*500).fadeIn("slow");
+	}
 }
 
 
@@ -53,10 +58,8 @@ $(document).ready(function() {
 
 	$('.container').on('click', '.rm-btn', function() {
 		$(this).parent().fadeOut("slow", function() {
-			var nextCell = $(this).next();
-			console.log(nextCell);
-			shuffleCells(nextCell);
 			$(this).remove();
+			tidyCells();
 		});
 	});
 
