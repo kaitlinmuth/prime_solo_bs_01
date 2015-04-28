@@ -7,28 +7,45 @@ function searchCallback(results) {
     console.log(results);
 
 	for (var i=0; i<9; i++){
+		//create row
+		if (i%2 == 0){
+		$('.container').append("<div class='row'></div>");
+		}
+		//create column
+		$(".row").last().append("<div class='col-xs-10 col-sm-10 col-md-6 col-lg-6 well newResult'></div>");
+		//append data
+		$(".newResult").last().append("<p class='lead'>" + results[i].name + "</p>");
+		//check for null values
+		if (results[i].image.thumb_url) {
+			$('.newResult').last().append("<img class='hidden-xs hidden-sm' src='" + results[i].image.thumb_url + "'>");
+			}
+		if (results[i].deck) {
+			$('.newResult').last().append("<p class='deck'>" + results[i].deck + "</p>");
+			}
+		// append button
+		$('.newResult').last().append("<div class='btn btn-sm btn-success rm-btn'>Remove</div>");
+		//show row
+		$(".row").hide().delay(i*500).fadeIn("slow");
+	};
 
-		// check for null items
-		var name = results[i].name;
-		var deck = "";
-		if (results[i].deck){
-			deck = results[i].deck;
-		}
-		var image = "";
-		if (results[i].image.thumb_url){
-			image = results[i].image.thumb_url;
-		}
-		$(".container").append("<div class='col-xs-10 col-sm-10 col-md-8 col-lg-8 well'><p class='lead'>" + name + "</p> <img class='hidden-xs hidden-sm' src='" + image + "'><p class='deck'>" + deck + "</p><div class='btn btn-sm btn-success'>Remove</div></div>");
-	}
 }
+
 
 $(document).ready(function() {
 
-	search("unicorn");
+	$(".submit").on('click', function(){
+		$(".container").empty();
+		var searchTerm = $("#searchField").val();
+		console.log(searchTerm);
+		$("#searchField").val('');
+		search(searchTerm);
+	});
 
-	$('.container').on('click', '.btn', function(){
-		$(this).parent().remove();
-	})
+	$('.container').on('click', '.btn', function() {
+		$(this).parent().fadeOut("slow", function () {
+			$(this).remove();
+		});
+	});
 
 	
 });
