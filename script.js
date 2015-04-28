@@ -36,7 +36,7 @@ function shuffleCells(cellName){
 		console.log("Get a cell: ", $(cellName).closest('.row').next().contents().first());
 		$(cellName).insertAfter($(cellName).closest('.row').next().contents().first());
 		console.log("Now work on ", cellName.closest('.row').next().contents().first());
-		shuffleCells(cellName.closest('.row').next().git contents().first());
+		shuffleCells(cellName.closest('.row').next().contents().first());
 	} else {return;}
 }
 
