@@ -3,14 +3,14 @@ img {
     padding: 0px 10px 10px 0px;
 }
 
-.well{
-    background-color: #ACE;
-    height: inherit;
+.row {
+    display: table;
 }
 
-
-#titleCell {
-    height: inherit%;
+.well{
+    display: table-cell;
+    background-color: #ACE;
+    float: none;
 }
 
 .deck {

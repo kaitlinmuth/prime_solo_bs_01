@@ -30,19 +30,32 @@ function searchCallback(results) {
 
 }
 
+function shuffleCells(cellName){
+		console.log("Next row contents: ", $(cellName).closest('.row').next().contents());
+	if ($(cellName).closest('.row').next().contents().length>0) {
+		console.log("Get a cell: ", $(cellName).closest('.row').next().contents().first());
+		$(cellName).insertAfter($(cellName).closest('.row').next().contents().first());
+		console.log("Now work on ", cellName.closest('.row').next().contents().first());
+		shuffleCells(cellName.closest('.row').next().git contents().first());
+	} else {return;}
+}
+
 
 $(document).ready(function() {
 
-	$(".submit").on('click', function(){
-		$(".container").empty();
+	$(".searchBtn").on('click', function(){
+		$(".container").children(".row").remove();
 		var searchTerm = $("#searchField").val();
 		console.log(searchTerm);
 		$("#searchField").val('');
 		search(searchTerm);
 	});
 
-	$('.container').on('click', '.btn', function() {
-		$(this).parent().fadeOut("slow", function () {
+	$('.container').on('click', '.rm-btn', function() {
+		$(this).parent().fadeOut("slow", function() {
+			var nextCell = $(this).next();
+			console.log(nextCell);
+			shuffleCells(nextCell);
 			$(this).remove();
 		});
 	});
